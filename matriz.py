@@ -1,9 +1,11 @@
 from nodos import Nodo, nodoEncabezado
 from encabezado import ListaEncabezado
 from tkinter import *
+import os
 
 
 class Ortogonal:
+
     def __init__(self, nombre, filas, columnas):
         self.eFilas = ListaEncabezado()
         self.eColumnas = ListaEncabezado()
@@ -93,84 +95,262 @@ class Ortogonal:
             eColumna = eColumna.siguiente
         print('\n==================================================')
 
+    def devolverFilas(self):
+        Valores = {}
+        eFila = self.eFilas.primero
+        #print('\n==================================================')
+        while eFila != None:
+            actual = eFila.accesoNodo
+            #print("\nFila "+str(actual.fila))
+            Valores[actual.fila] = []
+            #print("Columna  Valor")
+            while actual != None:
+                #print(str(actual.columna)+"        "+actual.valor)
+                Valores[actual.fila].append(actual.columna)
+                actual = actual.derecha
+            eFila = eFila.siguiente
+        #print('\n==================================================')
+        #print(Valores)
+        return Valores
+
+    def devolverColumnas(self):
+        Valores={}
+        eColumna = self.eColumnas.primero
+        #print('\n==================================================')
+        while eColumna != None:
+            actual = eColumna.accesoNodo
+            #print('\nColumna '+str(actual.columna))
+            Valores[actual.columna] = []
+            #print('Fila   Valor')
+            while actual != None:
+                #print(str(actual.fila)+"      "+actual.valor)
+                Valores[actual.columna].append(actual.fila)
+                actual = actual.abajo
+            eColumna = eColumna.siguiente
+        #print('\n==================================================')
+        #print(Valores)
+        return Valores
+
     def Rotacion_H(self):
-        pass
+        Datos = self.devolverFilas()
+        self.Borrar()
+        for v in Datos:
+            #print(v)
+            cambio_fila = int(self.filas) - v
+            for b in Datos[v]:
+                #print(b)
+                self.insertar(cambio_fila - 1, int(b), '*')
+        self.graficar()
+
 
     def Rotacion_V(self):
-        pass
+        Datos = self.devolverColumnas()
+        self.Borrar()
+        for v in Datos:
+            # print(v)
+            cambio_col = int(self.columnas) - v
+            for b in Datos[v]:
+                # print(b)
+                self.insertar(int(b), cambio_col - 1, '*')
+        self.graficar()
 
     def Transpuesta(self):
-        pass
+        Datos = self.devolverFilas()
+        self.Borrar()
+        for v in Datos:
+            # print(v)
+            cambio_fila = int(self.filas) - v
+            for b in Datos[v]:
+                # print(b)
+                self.insertar(int(b), cambio_fila - 1, '*')
+        self.Rotacion_V()
+        self.graficar()
 
-    def Limpiar(self):
-        pass
+    def Borrar_Nodo(self, fila1, columna1):
+        eFila = self.eFilas.primero
+        while eFila != None:
+            actual = eFila.accesoNodo
+            while actual != None:
+                if actual.fila == fila1 and actual.columna == columna1:
+                    if actual.izquierda == None:
+                        if actual.derecha == None:
+                            eFila.accesoNodo = None
+                        elif actual.derecha != None:
+                            if eFila.accesoNodo != actual:
+                                actual.izquierda.derecha = actual.derecha
+                            elif eFila.accesoNodo == actual:
+                                eFila.accesoNodo = actual.derecha
+                                if actual.abajo != None:
+                                    if actual.arriba == None:
+                                        if self.eColumnas.getEncabezado(actual.columna).accesoNodo == actual:
+                                            self.eColumnas.getEncabezado(actual.columna).accesoNodo = actual.abajo
+                                        else:
+                                            actual.abajo.arriba = None
+                                    else:
+                                        actual.abajo.arriba = actual.arriba
+                                        actual.arriba.abajo = actual.abajo
+                                else:
+                                    if actual.arriba != None:
+                                        actual.arriba.abajo = None
+
+                    if actual.izquierda != None:
+                        if actual.derecha != None:
+                            actual.izquierda.derecha = actual.derecha
+                            actual.derecha.izquierda = actual.izquierda
+                            if actual.abajo != None:
+                                if actual.arriba != None:
+                                    actual.abajo.arriba = actual.arriba
+                                    actual.arriba.abajo = actual.abajo
+                                else:
+                                    if self.eColumnas.getEncabezado(actual.columna).accesoNodo == actual:
+                                        self.eColumnas.getEncabezado(actual.columna).accesoNodo = None
+                            else:
+                                if actual.arriba != None:
+                                    actual.arriba.abajo = None
+                                else:
+                                    self.eColumnas.getEncabezado(actual.columna).accesoNodo = None
+                        else:
+                            actual.izquierda.derecha = None
+                    return
+                actual = actual.derecha
+            eFila = eFila.siguiente
+
+    def Limpiar(self, fila, columna, fila1, columna1):
+        if fila1 < fila or columna1 < columna:
+            print('Error')
+        else:
+            fifo = columna
+            fila -= 1
+            columna -= 1
+            indicativo_fila = fila1 - fila
+            #print(indicativo_fila)
+            indicativo_col = columna1-columna
+            #print(indicativo_col)
+            for cv in range(indicativo_fila):
+                fila += 1
+                columna = fifo - 1
+                for cb in range(indicativo_col):
+                    columna += 1
+                    #print(fila, columna)
+                    self.Borrar_Nodo(fila, columna)
+        self.graficar()
     
-    def Agregar_H(self):
-        pass
+    def Agregar_H(self, fila, columna, longitud):
+        columna -= 1
+        for a in range(longitud):
+            columna += 1
+            self.insertar(fila, columna, '*')
+        self.graficar()
 
-    def Agregar_V(self):
-        pass
+    def Agregar_V(self, fila, columna, longitud):
+        fila -= 1
+        for a in range(longitud):
+            fila += 1
+            self.insertar(fila, columna, '*')
+        self.graficar()
 
-    def Agregar_Rectangulo(self):
-        pass
+    def Agregar_Rectangulo(self, fila, columna, expresion):
+        expresion = expresion.split('x')
+        alto = int(expresion[0])
+        largo = int(expresion[1])
+        # Agregando Primer Pilar Horizontal
+        self.Agregar_H(fila, columna, largo)
+        # Agregando Segundo Pilar Horizontal
+        self.Agregar_H((fila + alto) - 1, columna, largo)
+        # Agregando Primer Pilar Vertical
+        self.Agregar_V(fila, columna, alto)
+        # Agregando Segundo Pilar Vertical
+        self.Agregar_V(fila, (columna + largo) - 1, alto)
+        self.graficar()
 
-    def Agregar_Triangulo(self):
-        pass
+    def Agregar_Triangulo(self, fila, columna, dimension):
+        # Agregando la Altura del Tringulo
+        self.Agregar_V(fila, columna, dimension)
+        # Agregando la Base del Tringulo
+        self.Agregar_H(fila + (dimension - 1), columna, dimension)
+        # Agregando la Diagonal del Tringulo
+        contador_fila = int(fila) - 1
+        contador_col = int(columna) - 1
+        for m in range(dimension):
+            contador_col += 1
+            contador_fila += 1
+            self.insertar(contador_fila, contador_col, '*')
+        self.graficar()
+
+    def Borrar(self):
+        self.eFilas = ListaEncabezado()
+        self.eColumnas = ListaEncabezado()
 
     def graficar(self):
-        """
-        for i in range(10):
-            try:
-                eFila = self.eFilas.getEncabezado(i)
-                print('Fila:' + str(eFila.accesoNodo.fila))
-            except AttributeError:
-                print('Fila:'+str(i)+' Inexistente')
-                #for j in range(10):
-                #    print('Nodo Columna Inexistente')
-        print('\n')
-
-        for j in range(10):
-            try:
-                eCol = self.eColumnas.getEncabezado(j)
-                print('Col:' + str(eCol.accesoNodo.columna))
-            except AttributeError:
-                print('Col:'+str(j)+' Inexistente')
-                #for j in range(10):
-                #    print('Nodo Columna Inexistente')
-        """
         ventana = Tk()
         ventana.title("Bienvenido")
 
         mapa = []
         for i in range(int(self.filas)):
             mapa.append(list(' '*int(self.columnas)))
-        print(mapa)
+        #print(mapa)
 
         eFila = self.eFilas.primero
         #print(op[0])
         while eFila != None:
             actual = eFila.accesoNodo
-            print("\nFila " + str(actual.fila))
-            print("Columna  Valor")
+            #print("\nFila " + str(actual.fila))
+            #print("Columna  Valor")
             while actual != None:
-                print(str(actual.columna) + "        " + actual.valor)
+                #print(str(actual.columna) + "        " + actual.valor)
                 mapa[int(actual.fila)][int(actual.columna)] = actual.valor
-                imagen1 = Label(ventana, bg="blue").grid(row=str(actual.fila), column=str(actual.columna))
+                #imagen1 = Label(ventana, bg="blue").grid(row=str(actual.fila), column=str(actual.columna))
                 actual = actual.derecha
-
             eFila = eFila.siguiente
 
-        print(mapa)
+        """
+        imagen1 = Label(ventana, text=str('ID'), bd=3, width=2, height=2).grid(row=str(0), column=str(0))
+
+        for la in range(int(self.filas)):
+            imagen1 = Label(ventana, text=str(la), bd=3, width=2, height=2).grid(row=str(la+1), column=str(0))
+
+        for lu in range(int(self.columnas)):
+            imagen1 = Label(ventana, text=str(lu), bd=3, width=2, height=2).grid(row=str(0), column=str(lu+1))
+
+        cont_fil = -1
+        cont_col = -1
+        for valor in mapa:
+            cont_fil += 1
+            cont_col = -1
+            for val in valor:
+                cont_col += 1
+                if val == '*':
+                    imagen1 = Label(ventana, bg="blue", width=2, height=2, bd=2).grid(row=str(int(cont_fil)+1), column=str(int(cont_col)+1))
+                else:
+                    imagen1 = Label(ventana, bg="white", width=2, height=2, bd=2).grid(row=str(int(cont_fil)+1), column=str(int(cont_col)+1))
+        #print(mapa)
         ventana.mainloop()
+        """
 
-
-"""
-m=Ortogonal('Matriz_1', 10, 10)
-m.insertar(3, 1, "*")
-m.insertar(1, 1, "*")
-m.insertar(1, 3, "*")
-m.insertar(0, 2, "*")
-m.insertar(5, 5, "*")
-m.recorrerColumnas()
-m.recorrerFilas()
-"""
+        with open('archivos/'+str(self.nombre)+'.dot', 'w') as re:
+            re.write('digraph G { bgcolor="white"'+'\n')
+            re.write('node [shape=plain]' + '\n')
+            re.write('a0 [label=<' + '\n')
+            re.write('<table border="0" cellborder="1" cellspacing="2" cellpadding="10">' + '\n')
+            #Encabezados
+            re.write('<tr>' + '\n')
+            re.write('<td>ID</td>' + '\n')
+            for an in range(int(self.columnas)):
+                re.write('<td>'+str(an)+'</td>' + '\n')
+            re.write('</tr>' + '\n')
+            
+            cont = -1
+            for valor in mapa:
+                cont += 1
+                re.write('<tr>' + '\n')
+                re.write('<td>'+str(cont)+'</td>' + '\n')
+                for val in valor:
+                    if val == '*':
+                        re.write('<td bgcolor="black"> </td>' + '\n')
+                    else:
+                        re.write('<td bgcolor="white"> </td>' + '\n')
+                re.write('</tr>' + '\n')
+            re.write('</table>>];' + '\n')
+            re.write('}' + '\n')
+            re.close()
+        os.system('dot -T png '+'archivos/'+str(self.nombre)+'.dot'+' -o '+'archivos/'+str(self.nombre)+'.png')

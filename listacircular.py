@@ -125,15 +125,15 @@ class ListaCiruclar():
       print(aux.Ortogonal.nombre)
 
   def Recorrer_String(self):
-    nombres = linked_list1()
+    nombres = []
     if self.Vacia():
       return
     else:
       aux = self.first
       while aux.next != self.first:
-        nombres.insertar(aux.Ortogonal.nombre)
+        nombres.append(aux.Ortogonal.nombre)
         aux = aux.next
-      nombres.insertar(aux.Ortogonal.nombre)
+      nombres.append(aux.Ortogonal.nombre)
       return nombres
 
   def Listar(self, nom_matr):
