@@ -216,7 +216,9 @@ class Ortogonal:
             eFila = eFila.siguiente
 
     def Limpiar(self, fila, columna, fila1, columna1):
-        if fila1 < fila or columna1 < columna:
+        if int(columna1) >= int(self.columnas) or int(columna) >= int(self.columnas) or int(fila1) >= int(self.filas) or int(fila) >= int(self.filas):
+            raise IndexError
+        elif fila1 < fila or columna1 < columna:
             print('Error')
         else:
             fifo = columna
@@ -236,6 +238,8 @@ class Ortogonal:
         self.graficar()
     
     def Agregar_H(self, fila, columna, longitud):
+        if (longitud + int(columna)) >= int(self.columnas) or (longitud + int(fila)) >= int(self.filas):
+            raise IndexError
         columna -= 1
         for a in range(longitud):
             columna += 1
@@ -243,6 +247,8 @@ class Ortogonal:
         self.graficar()
 
     def Agregar_V(self, fila, columna, longitud):
+        if (longitud + int(columna)) >= int(self.columnas) or (longitud + int(fila)) >= int(self.filas):
+            raise IndexError
         fila -= 1
         for a in range(longitud):
             fila += 1
@@ -250,9 +256,11 @@ class Ortogonal:
         self.graficar()
 
     def Agregar_Rectangulo(self, fila, columna, expresion):
-        expresion = expresion.split('x')
-        alto = int(expresion[0])
-        largo = int(expresion[1])
+        nexpresion = expresion.split('x')
+        largo = int(nexpresion[0])
+        alto = int(nexpresion[1])
+        if (largo + int(columna)) >= int(self.columnas) or (alto + int(fila)) >= int(self.filas):
+            raise IndexError
         # Agregando Primer Pilar Horizontal
         self.Agregar_H(fila, columna, largo)
         # Agregando Segundo Pilar Horizontal
