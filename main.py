@@ -432,10 +432,11 @@ def GraficarOriginal():
     try:
         Grafo(nom_mat)
         if nom_mat_1 != ' ':
-            jojos()
-            Grafo2(nom_mat_1)
-        else:
-            jojos1()
+            try:
+                Grafo2(nom_mat_1)
+                jojos()
+            except:
+                pass
     except:
         messagebox.showwarning(message='Error')
         reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
