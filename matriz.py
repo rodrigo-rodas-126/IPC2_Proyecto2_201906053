@@ -290,8 +290,8 @@ class Ortogonal:
         self.eColumnas = ListaEncabezado()
 
     def graficar(self):
-        ventana = Tk()
-        ventana.title("Bienvenido")
+        #ventana = Tk()
+        #ventana.title("Bienvenido")
 
         mapa = []
         for i in range(int(self.filas)):
