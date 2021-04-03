@@ -289,7 +289,7 @@ def LZ():
     reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
         time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
         time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
-        nom_mat) + ' - Operacion: ' + 'Limpiar Zona')
+        nom_mat) + ' - Operacion: ' + 'Limpiar Zona' + 'Columna:' + str(fil) + ' Fila:' + str(col) + ' Hasta ' + 'Columna:' + str(col1) + ' Fila:' + str(fil1))
     cargar_R('archivos/' + str(nom_mat) + '.png')
 
 def ALH():
@@ -319,7 +319,7 @@ def ALH():
     reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
         time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
         time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
-        nom_mat) + ' - Operacion: ' + 'Agregar Linea Horizontal')
+        nom_mat) + ' - Operacion: ' + 'Agregar Linea Horizontal' + 'Columna:' + str(col) + ' Fila:' + str(fil) + ' Elementos: ' + str(can))
     cargar_R('archivos/' + str(nom_mat) + '.png')
 
 def ALV():
@@ -341,7 +341,7 @@ def ALV():
     reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
         time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
         time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
-        nom_mat) + ' - Operacion: ' + 'Agregar Linea Vertical')
+        nom_mat) + ' - Operacion: ' + 'Agregar Linea Vertical' + 'Columna:' + str(col) + ' Fila:' + str(fil) + ' Elementos: ' + str(can))
     cargar_R('archivos/' + str(nom_mat) + '.png')
 
 def ATR():
@@ -363,7 +363,7 @@ def ATR():
     reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
         time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
         time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
-        nom_mat) + ' - Operacion: ' + 'Agregar Triangulo Rectangulo')
+        nom_mat) + ' - Operacion: ' + 'Agregar Triangulo Rectangulo' + 'Columna:' + str(col) + ' Fila:' + str(fil) + ' Dimension: ' + str(can))
     cargar_R('archivos/' + str(nom_mat) + '.png')
 
 def ARE():
@@ -393,7 +393,7 @@ def ARE():
     reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
         time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
         time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
-        nom_mat) + ' - Operacion: ' + 'Agergar Rectangulo')
+        nom_mat) + ' - Operacion: ' + 'Agregar Rectangulo' + 'Columna:' + str(col) + ' Fila:' + str(fil) + ' Dimension:' + str(can))
     cargar_R('archivos/' + str(nom_mat) + '.png')
 
 def BorrarUnNodo():
@@ -422,7 +422,7 @@ def BorrarUnNodo():
     reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
         time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
         time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
-        nom_mat) + ' - Operacion: ' + 'Agergar Rectangulo')
+        nom_mat) + ' - Operacion: ' + 'Borrar Nodo')
     cargar_R('archivos/' + str(nom_mat) + '.png')
 
 def GraficarOriginal():
@@ -595,14 +595,21 @@ def Diferencia():
             time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Error: Matriz Inexistente')
         return
     nombre = 'Matriz_D'
-    fil = lista_matrices.Listar(nom_mat).filas
-    col = lista_matrices.Listar(nom_mat).columnas
+    fil = int(lista_matrices.Listar(nom_mat).filas)
+    col = int(lista_matrices.Listar(nom_mat).columnas)
     new_m = Ortogonal(str(nombre), int(fil), int(col))
 
     for v in Datos1:
         for b in Datos1[v]:
-            new_m.insertar(v, b, '*')
-
+            try:
+                coincidencia = Datos2[v]
+                if b in coincidencia:
+                    continue
+                else:
+                    new_m.insertar(v, b, '*')
+            except:
+                new_m.insertar(v, b, '*')
+    """
     for e in Datos2:
         for c in Datos2[e]:
             if e > int(fil) or c > int(col):
@@ -613,6 +620,7 @@ def Diferencia():
                 return
             else:
                 new_m.Borrar_Nodo(e, c)
+    """
 
     lista_matrices.AgregarFinal(new_m)
     Grafo1(nombre)
@@ -645,6 +653,18 @@ def Diferencia1():
 
     for v in Datos1:
         for b in Datos1[v]:
+            try:
+                coincidencia = Datos2[v]
+                if b in coincidencia:
+                    continue
+                else:
+                    new_m.insertar(v, b, '*')
+            except:
+                new_m.insertar(v, b, '*')
+
+    """
+    for v in Datos1:
+        for b in Datos1[v]:
             new_m.insertar(v, b, '*')
 
     for e in Datos2:
@@ -657,6 +677,7 @@ def Diferencia1():
                 return
             else:
                 new_m.Borrar_Nodo(e, c)
+    """
 
     lista_matrices.AgregarFinal(new_m)
     Grafo1(nombre)

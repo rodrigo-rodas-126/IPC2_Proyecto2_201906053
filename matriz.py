@@ -175,17 +175,18 @@ class Ortogonal:
                     if actual.izquierda == None:
                         if actual.derecha == None:
                             eFila.accesoNodo = None
-                        elif actual.derecha != None:
+                        else:
                             if eFila.accesoNodo != actual:
                                 actual.izquierda.derecha = actual.derecha
-                            elif eFila.accesoNodo == actual:
+                            else:
                                 eFila.accesoNodo = actual.derecha
                                 if actual.abajo != None:
                                     if actual.arriba == None:
-                                        if self.eColumnas.getEncabezado(actual.columna).accesoNodo == actual:
-                                            self.eColumnas.getEncabezado(actual.columna).accesoNodo = actual.abajo
-                                        else:
-                                            actual.abajo.arriba = None
+                                        #if self.eColumnas.getEncabezado(actual.columna).accesoNodo == actual:
+                                        #    self.eColumnas.getEncabezado(actual.columna).accesoNodo = actual.abajo
+                                        efCol = self.eFilas.getEncabezado(actual.columna).accesoNodo
+                                        efCol.accesoNodo = actual.abajo
+
                                     else:
                                         actual.abajo.arriba = actual.arriba
                                         actual.arriba.abajo = actual.abajo
@@ -193,7 +194,7 @@ class Ortogonal:
                                     if actual.arriba != None:
                                         actual.arriba.abajo = None
 
-                    if actual.izquierda != None:
+                    else:
                         if actual.derecha != None:
                             actual.izquierda.derecha = actual.derecha
                             actual.derecha.izquierda = actual.izquierda
@@ -219,26 +220,28 @@ class Ortogonal:
         if int(columna1) >= int(self.columnas) or int(columna) >= int(self.columnas) or int(fila1) >= int(self.filas) or int(fila) >= int(self.filas):
             raise IndexError
         elif fila1 < fila or columna1 < columna:
-            print('Error')
-        else:
-            fifo = columna
-            fila -= 1
-            columna -= 1
-            indicativo_fila = fila1 - fila
-            #print(indicativo_fila)
-            indicativo_col = columna1-columna
-            #print(indicativo_col)
-            for cv in range(indicativo_fila):
-                fila += 1
-                columna = fifo - 1
-                for cb in range(indicativo_col):
-                    columna += 1
-                    #print(fila, columna)
-                    self.Borrar_Nodo(fila, columna)
+            raise IndexError
+
+        iFila = abs(fila1 - fila)
+        iCol = abs(columna1 - columna)
+
+        saveCol = columna1
+
+        fila1 += 1
+        #self.Borrar_Nodo(fila1, columna1)
+        for u in range(iFila + 1):
+            fila1 -= 1
+            #print('Fila: '+str(fila1))
+            columna1 = saveCol
+            columna1 += 1
+            for k in range(iCol + 1):
+                columna1 -= 1
+                #print('Col: '+str(columna1))
+                self.Borrar_Nodo(fila1, columna1)
         self.graficar()
     
     def Agregar_H(self, fila, columna, longitud):
-        if (longitud + int(columna)) >= int(self.columnas) or (longitud + int(fila)) >= int(self.filas):
+        if (longitud + int(columna)) > int(self.columnas):
             raise IndexError
         columna -= 1
         for a in range(longitud):
@@ -247,7 +250,7 @@ class Ortogonal:
         self.graficar()
 
     def Agregar_V(self, fila, columna, longitud):
-        if (longitud + int(columna)) >= int(self.columnas) or (longitud + int(fila)) >= int(self.filas):
+        if (longitud + int(fila)) > int(self.filas):
             raise IndexError
         fila -= 1
         for a in range(longitud):
@@ -259,7 +262,7 @@ class Ortogonal:
         nexpresion = expresion.split('x')
         largo = int(nexpresion[0])
         alto = int(nexpresion[1])
-        if (largo + int(columna)) >= int(self.columnas) or (alto + int(fila)) >= int(self.filas):
+        if (largo + int(columna)) > int(self.columnas) or (alto + int(fila)) > int(self.filas):
             raise IndexError
         # Agregando Primer Pilar Horizontal
         self.Agregar_H(fila, columna, largo)
@@ -332,7 +335,7 @@ class Ortogonal:
                 else:
                     imagen1 = Label(ventana, bg="white", width=2, height=2, bd=2).grid(row=str(int(cont_fil)+1), column=str(int(cont_col)+1))
         #print(mapa)
-        ventana.mainloop()
+        #ventana.mainloop()
         """
 
         with open('archivos/'+str(self.nombre)+'.dot', 'w') as re:
