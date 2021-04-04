@@ -17,7 +17,7 @@ a0 [label=<
 </tr>
 <tr>
 <td>0</td>
-<td bgcolor="black"> </td>
+<td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
@@ -32,11 +32,11 @@ a0 [label=<
 <td>1</td>
 <td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
-<td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
@@ -44,12 +44,12 @@ a0 [label=<
 <tr>
 <td>2</td>
 <td bgcolor="white"> </td>
-<td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
@@ -57,25 +57,25 @@ a0 [label=<
 <tr>
 <td>3</td>
 <td bgcolor="white"> </td>
-<td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
-<td bgcolor="black"> </td>
-<td bgcolor="black"> </td>
-<td bgcolor="black"> </td>
+<td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
 </tr>
 <tr>
 <td>4</td>
 <td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
+<td bgcolor="black"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
 <td bgcolor="white"> </td>
@@ -97,12 +97,12 @@ a0 [label=<
 <td>6</td>
 <td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
-<td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
-<td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 </tr>
@@ -111,11 +111,11 @@ a0 [label=<
 <td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
-<td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
-<td bgcolor="black"> </td>
-<td bgcolor="black"> </td>
-<td bgcolor="black"> </td>
+<td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 </tr>
@@ -126,9 +126,9 @@ a0 [label=<
 <td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
+<td bgcolor="white"> </td>
 <td bgcolor="black"> </td>
-<td bgcolor="white"> </td>
-<td bgcolor="white"> </td>
+<td bgcolor="black"> </td>
 <td bgcolor="black"> </td>
 <td bgcolor="white"> </td>
 </tr>

@@ -449,6 +449,8 @@ def Union():
     jojos()
     nom_mat = cajaMatriz.get()
     nom_mat_1 = cajaM2.get()
+    fil = 0
+    col = 0
     try:
         Datos1 = lista_matrices.Listar(nom_mat).devolverFilas()
         Datos2 = lista_matrices.Listar(nom_mat_1).devolverFilas()
@@ -461,8 +463,34 @@ def Union():
             time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Error: Matriz Inexistente')
         return
     nombre = 'Matriz_U'
-    fil = lista_matrices.Listar(nom_mat).filas
-    col = lista_matrices.Listar(nom_mat).columnas
+    tam_fil = int(lista_matrices.Listar(nom_mat).filas)
+    tam_col = int(lista_matrices.Listar(nom_mat).columnas)
+    tam_fil_1 = int(lista_matrices.Listar(nom_mat_1).filas)
+    tam_col_1 = int(lista_matrices.Listar(nom_mat_1).columnas)
+    if tam_fil > tam_fil_1:
+        fil = tam_fil
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 > tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 == tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
     new_m = Ortogonal(str(nombre), int(fil), int(col))
 
     for v in Datos1:
@@ -493,6 +521,8 @@ def Union1():
     jojos()
     nom_mat = 'Matriz_D'
     nom_mat_1 = 'Matriz_D1'
+    fil = 0
+    col = 0
     try:
         Datos1 = lista_matrices.Listar(nom_mat).devolverFilas()
         Datos2 = lista_matrices.Listar(nom_mat_1).devolverFilas()
@@ -505,13 +535,46 @@ def Union1():
             time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Error: Matriz Inexistente')
         return
     nombre = 'Matriz_DS'
-    fil = lista_matrices.Listar(nom_mat).filas
-    col = lista_matrices.Listar(nom_mat).columnas
+    tam_fil = int(lista_matrices.Listar(nom_mat).filas)
+    tam_col = int(lista_matrices.Listar(nom_mat).columnas)
+    tam_fil_1 = int(lista_matrices.Listar(nom_mat_1).filas)
+    tam_col_1 = int(lista_matrices.Listar(nom_mat_1).columnas)
+    if tam_fil > tam_fil_1:
+        fil = tam_fil
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 > tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 == tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
     new_m = Ortogonal(str(nombre), int(fil), int(col))
 
     for v in Datos1:
         for b in Datos1[v]:
-            new_m.insertar(v, b, '*')
+            if v > int(fil) or b > int(col):
+                reporte.append(str(time.localtime().tm_mday) + '/' + str(time.localtime().tm_mon) + '/' + str(
+                    time.localtime().tm_year) + ' - ' + str(time.localtime().tm_hour) + ':' + str(
+                    time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Matrices: ' + str(
+                    nom_mat) + ', ' + str(nom_mat_1) + ' - Error: ' + 'Nodos fuera de index')
+                return
+            else:
+                new_m.insertar(v, b, '*')
 
     for e in Datos2:
         for c in Datos2[e]:
@@ -536,6 +599,8 @@ def Interseccion():
     jojos()
     nom_mat = cajaMatriz.get()
     nom_mat_1 = cajaM2.get()
+    fil = 0
+    col = 0
     try:
         Datos1 = lista_matrices.Listar(nom_mat).devolverFilas()
         Datos2 = lista_matrices.Listar(nom_mat_1).devolverFilas()
@@ -548,8 +613,34 @@ def Interseccion():
             time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Error: Matriz Inexistente')
         return
     nombre = 'Matriz_I'
-    fil = lista_matrices.Listar(nom_mat).filas
-    col = lista_matrices.Listar(nom_mat).columnas
+    tam_fil = int(lista_matrices.Listar(nom_mat).filas)
+    tam_col = int(lista_matrices.Listar(nom_mat).columnas)
+    tam_fil_1 = int(lista_matrices.Listar(nom_mat_1).filas)
+    tam_col_1 = int(lista_matrices.Listar(nom_mat_1).columnas)
+    if tam_fil > tam_fil_1:
+        fil = tam_fil
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 > tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 == tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
     new_m = Ortogonal(str(nombre), int(fil), int(col))
 
     for j in range(int(fil)):
@@ -583,6 +674,8 @@ def Diferencia():
     jojos()
     nom_mat = cajaMatriz.get()
     nom_mat_1 = cajaM2.get()
+    fil = 0
+    col = 0
     try:
         Datos1 = lista_matrices.Listar(nom_mat).devolverFilas()
         Datos2 = lista_matrices.Listar(nom_mat_1).devolverFilas()
@@ -595,8 +688,34 @@ def Diferencia():
             time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Error: Matriz Inexistente')
         return
     nombre = 'Matriz_D'
-    fil = int(lista_matrices.Listar(nom_mat).filas)
-    col = int(lista_matrices.Listar(nom_mat).columnas)
+    tam_fil = int(lista_matrices.Listar(nom_mat).filas)
+    tam_col = int(lista_matrices.Listar(nom_mat).columnas)
+    tam_fil_1 = int(lista_matrices.Listar(nom_mat_1).filas)
+    tam_col_1 = int(lista_matrices.Listar(nom_mat_1).columnas)
+    if tam_fil > tam_fil_1:
+        fil = tam_fil
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 > tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 == tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
     new_m = Ortogonal(str(nombre), int(fil), int(col))
 
     for v in Datos1:
@@ -635,6 +754,8 @@ def Diferencia1():
     Diferencia()
     nom_mat_1 = cajaMatriz.get()
     nom_mat = cajaM2.get()
+    fil = 0
+    col = 0
     try:
         Datos1 = lista_matrices.Listar(nom_mat).devolverFilas()
         Datos2 = lista_matrices.Listar(nom_mat_1).devolverFilas()
@@ -647,8 +768,34 @@ def Diferencia1():
             time.localtime().tm_min) + ':' + str(time.localtime().tm_sec) + ' - Error: Matriz Inexistente')
         return
     nombre = 'Matriz_D1'
-    fil = lista_matrices.Listar(nom_mat).filas
-    col = lista_matrices.Listar(nom_mat).columnas
+    tam_fil = int(lista_matrices.Listar(nom_mat).filas)
+    tam_col = int(lista_matrices.Listar(nom_mat).columnas)
+    tam_fil_1 = int(lista_matrices.Listar(nom_mat_1).filas)
+    tam_col_1 = int(lista_matrices.Listar(nom_mat_1).columnas)
+    if tam_fil > tam_fil_1:
+        fil = tam_fil
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 > tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
+    elif tam_fil_1 == tam_fil:
+        fil = tam_fil_1
+        if tam_col > tam_col_1:
+            col = tam_col
+        elif tam_col_1 > tam_col:
+            col = tam_col_1
+        elif tam_col_1 == tam_col:
+            col = tam_col
     new_m = Ortogonal(str(nombre), int(fil), int(col))
 
     for v in Datos1:
